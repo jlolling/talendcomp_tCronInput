@@ -1,0 +1,63 @@
+<%@ jet 
+	imports="
+		org.talend.core.model.process.INode 
+		org.talend.core.model.process.ElementParameterParser 
+		org.talend.core.model.process.IConnection
+		org.talend.core.model.process.IConnectionCategory
+		org.talend.designer.codegen.config.CodeGeneratorArgument
+		org.talend.core.model.utils.NodeUtil
+		java.util.List
+	" 
+%>
+<% 
+    CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+    INode node = (INode) codeGenArgument.getArgument();
+    String cid = node.getUniqueName();
+ 	 String cron = ElementParameterParser.getValue(node, "__CRON_EXPRESSION__");
+	String locale = ElementParameterParser.getValue(node, "__LOCALE__");
+    if (locale == null || locale.trim().isEmpty()) {
+   		locale = "null";
+    }
+    String startDate = ElementParameterParser.getValue(node, "__START_TIMESTAMP__");
+	String endDate = ElementParameterParser.getValue(node, "__END_TIMESTAMP__");
+	String maxEntries = ElementParameterParser.getValue(node, "__MAX_ENTRIES__");
+	String outgoingConnName = null;
+	List<? extends IConnection> outConns = NodeUtil.getOutgoingConnections(node, IConnectionCategory.DATA);
+	if (outConns != null && outConns.isEmpty() == false) {
+	    IConnection outConn = outConns.get(0);
+	    outgoingConnName = outConn.getName();
+	}
+%>
+	de.jlo.talendcomp.cron.CronHelper <%=cid%> = null;
+	try {
+		<%=cid%> = new de.jlo.talendcomp.cron.CronHelper(<%=cron%>);
+   	<%=cid%>.setLocale(<%=locale%>);
+<%  if (startDate != null && startDate.isEmpty() == false) { %>
+		<%=cid%>.setRangeStartDate(<%=startDate%>);
+<%  } else { %>
+		<%=cid%>.setRangeStartDate(TalendDate.getCurrentDate());
+<%  } %>
+<%  if (endDate != null && endDate.isEmpty() == false) { %>
+		<%=cid%>.setRangeEndDate(<%=endDate%>);
+<%  } %>
+<%  if (maxEntries != null && maxEntries.trim().isEmpty() == false) { %>
+		<%=cid%>.setMaxIndex(<%=maxEntries%>);
+<%  } %>
+	} catch (Exception e) {
+		globalMap.put("<%=cid%>_ERROR_MESSAGE", e.getMessage());
+		throw e;
+	}
+	int count_<%=cid%> = 0;
+<%  if (outgoingConnName != null) { %>
+	while (<%=cid%>.next()) {
+		<%=outgoingConnName%>.PREV_TIMESTAMP = <%=cid%>.getPrevStartDate();
+		<%=outgoingConnName%>.NEXT_TIMESTAMP = <%=cid%>.getNextStartDate();
+		<%=outgoingConnName%>.CURRENT_INDEX = count_<%=cid%>++;
+		<%=outgoingConnName%>.NEXT_MINUTE = <%=cid%>.getNextMinute();
+		<%=outgoingConnName%>.NEXT_HOUR = <%=cid%>.getNextHour();
+		<%=outgoingConnName%>.NEXT_DAY_OF_MONTH = <%=cid%>.getNextDayOfMonth();
+		<%=outgoingConnName%>.NEXT_MONTH = <%=cid%>.getNextMonth();
+		<%=outgoingConnName%>.NEXT_DAY_OF_WEEK = <%=cid%>.getNextDayOfWeek();
+		<%=outgoingConnName%>.NEXT_YEAR = <%=cid%>.getNextYear();
+<%  } %>
+

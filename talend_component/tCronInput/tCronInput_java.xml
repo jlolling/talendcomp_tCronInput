@@ -1,0 +1,94 @@
+<!-- $Id: tFileInputLDIF.xml 291 2006-11-01 07:34:12Z nrousseau $ -->
+<COMPONENT>
+	<HEADER PLATEFORM="ALL" SERIAL="" VERSION="1.1" STATUS="PROD"
+		COMPATIBILITY="ALL" AUTHOR="Talend" RELEASE_DATE="20150922A"
+		STARTABLE="true" HAS_CONDITIONAL_OUTPUTS="true">
+		<SIGNATURE />
+	</HEADER>
+
+	<FAMILIES>
+		<FAMILY>Misc</FAMILY>
+	</FAMILIES>
+
+	<DOCUMENTATION>
+		<URL />
+	</DOCUMENTATION>
+
+	<CONNECTORS>
+		<CONNECTOR CTYPE="FLOW" MAX_INPUT="0" MAX_OUTPUT="1" />
+		<CONNECTOR CTYPE="ITERATE" MAX_OUTPUT="1" MAX_INPUT="1" />
+		<CONNECTOR CTYPE="SUBJOB_OK" MAX_INPUT="1" />
+		<CONNECTOR CTYPE="SUBJOB_ERROR" MAX_INPUT="1" />
+		<CONNECTOR CTYPE="COMPONENT_OK" />
+		<CONNECTOR CTYPE="COMPONENT_ERROR" />
+		<CONNECTOR CTYPE="RUN_IF" />
+	</CONNECTORS>
+
+	<PARAMETERS>
+		<PARAMETER NAME="CRON_EXPRESSION" FIELD="TEXT" NUM_ROW="10"
+			REQUIRED="true">
+			<DEFAULT>"0 0 * * ? *"</DEFAULT>
+		</PARAMETER>
+
+		<PARAMETER FIELD="TEXT" NAME="LOCALE" NUM_ROW="15"/>
+
+		<PARAMETER NAME="START_TIMESTAMP" FIELD="TEXT"
+			NUM_ROW="20">
+			<DEFAULT></DEFAULT>
+		</PARAMETER>
+
+		<PARAMETER NAME="END_TIMESTAMP" FIELD="TEXT"
+			NUM_ROW="30">
+		</PARAMETER>
+
+		<PARAMETER NAME="MAX_ENTRIES" FIELD="TEXT"
+			NUM_ROW="40">
+		</PARAMETER>
+
+		<PARAMETER NAME="SCHEMA" FIELD="SCHEMA_TYPE" REQUIRED="true"
+			NUM_ROW="50">
+			<TABLE READONLY="true">
+				<COLUMN NAME="PREV_TIMESTAMP" TYPE="id_Date" KEY="true"
+					COMMENT="Last timestamp" READONLY="true" CUSTOM="true"
+					PATTERN="&quot;yyyy-MM-dd HH:mm:ss&quot;" LENGTH="10" NULLABLE="false" />
+				<COLUMN NAME="NEXT_TIMESTAMP" TYPE="id_Date" KEY="true"
+					COMMENT="Next timestamp" READONLY="true" CUSTOM="true"
+					PATTERN="&quot;yyyy-MM-dd HH:mm:ss&quot;" LENGTH="10" NULLABLE="false" />
+				<COLUMN NAME="CURRENT_INDEX" TYPE="id_Long" READONLY="true"
+					COMMENT="Index of timestamp" CUSTOM="true" LENGTH="22"
+					NULLABLE="false" />
+				<COLUMN NAME="NEXT_MINUTE" TYPE="id_Integer" READONLY="true"
+					COMMENT="Next minute" CUSTOM="true" LENGTH="2" NULLABLE="false" />
+				<COLUMN NAME="NEXT_HOUR" TYPE="id_Integer" READONLY="true"
+					COMMENT="Next hour" CUSTOM="true" LENGTH="2" NULLABLE="false" />
+				<COLUMN NAME="NEXT_DAY_OF_MONTH" TYPE="id_Integer"
+					READONLY="true" COMMENT="Current day of month (starts with 1)"
+					CUSTOM="true" LENGTH="2" NULLABLE="false" />
+				<COLUMN NAME="NEXT_MONTH" TYPE="id_Integer" READONLY="true"
+					COMMENT="Next month (starts with 1)" CUSTOM="true" LENGTH="2"
+					NULLABLE="false" />
+				<COLUMN NAME="NEXT_DAY_OF_WEEK" TYPE="id_Integer"
+					READONLY="true" COMMENT="Current day of week (Sunday = 0)" CUSTOM="true"
+					LENGTH="1" NULLABLE="false" />
+				<COLUMN NAME="NEXT_YEAR" TYPE="id_Integer" READONLY="true"
+					COMMENT="Next year" CUSTOM="true" LENGTH="4" NULLABLE="false" />
+			</TABLE>
+		</PARAMETER>
+
+	</PARAMETERS>
+
+	<ADVANCED_PARAMETERS>
+	</ADVANCED_PARAMETERS>
+
+	<CODEGENERATION>
+		<IMPORTS>
+			<IMPORT NAME="cron_parser" MODULE="de.jlo.talendcomp.cron_parser-1.0.jar"
+				REQUIRED="true" />
+		</IMPORTS>
+	</CODEGENERATION>
+
+	<RETURNS>
+		<RETURN NAME="NB_LINE" TYPE="id_Integer" AVAILABILITY="AFTER" />
+	</RETURNS>
+
+</COMPONENT>
