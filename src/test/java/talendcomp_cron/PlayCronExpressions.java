@@ -9,7 +9,7 @@ import org.quartz.CronExpression;
 
 import de.jlo.talendcomp.cron.CronHelper;
 
-public class TestCronExpressions {
+public class PlayCronExpressions {
 
 	public static void main(String[] args) {
 		try {

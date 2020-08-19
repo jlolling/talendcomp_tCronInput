@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.jlo.talendcomp</groupId>
 	<artifactId>jlo-talendcomp-cronparser</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -14,6 +14,14 @@
 				<exclusion>
 					<groupId>c3p0</groupId>
 					<artifactId>c3p0</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.mchange</groupId>
+					<artifactId>c3p0</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.zaxxer</groupId>
+					<artifactId>HikariCP-java7</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -26,8 +34,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>

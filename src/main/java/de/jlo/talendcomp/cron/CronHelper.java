@@ -16,7 +16,6 @@
 package de.jlo.talendcomp.cron;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -33,7 +32,6 @@ public class CronHelper {
 	private Date nextStartDate = null;
 	private Date prevStartDate = null;
 	private Calendar nc = null;
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	private Locale locale = null;
 
 	/**
@@ -161,7 +159,7 @@ public class CronHelper {
 	
 	public void setRangeStartDate(String datestr) throws ParseException {
 		if (datestr != null && datestr.trim().isEmpty() == false) {
-			this.rangeStartDate = sdf.parse(datestr);
+			this.rangeStartDate = GenericDateUtil.parseDate(datestr);
 		}
 	}
 
@@ -178,7 +176,7 @@ public class CronHelper {
 
 	public void setRangeEndDate(String datestr) throws ParseException {
 		if (datestr != null && datestr.trim().isEmpty() == false) {
-			this.rangeEndDate = sdf.parse(datestr);
+			this.rangeEndDate = GenericDateUtil.parseDate(datestr);
 		}
 	}
 
