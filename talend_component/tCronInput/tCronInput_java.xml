@@ -2,7 +2,7 @@
 
 <!-- $Id: tFileInputLDIF.xml 291 2006-11-01 07:34:12Z nrousseau $ -->
 <COMPONENT> 
-  <HEADER PLATEFORM="ALL" SERIAL="" VERSION="1.2" STATUS="PROD" COMPATIBILITY="ALL" AUTHOR="Talend" RELEASE_DATE="20200819" STARTABLE="true" HAS_CONDITIONAL_OUTPUTS="true"> 
+  <HEADER PLATEFORM="ALL" SERIAL="" VERSION="1.4" STATUS="PROD" COMPATIBILITY="ALL" AUTHOR="Talend" RELEASE_DATE="20201008" STARTABLE="true" HAS_CONDITIONAL_OUTPUTS="true"> 
     <SIGNATURE/> 
   </HEADER>  
   <FAMILIES> 
@@ -45,13 +45,13 @@
     </PARAMETER> 
   </PARAMETERS>  
   <ADVANCED_PARAMETERS> 
-    <PARAMETER NAME="RELEASE_LABEL_20200819" FIELD="LABEL" COLOR="0;0;0" NUM_ROW="900">
-      <DEFAULT>Release: 1.2 build at: 20200819</DEFAULT>
+    <PARAMETER NAME="RELEASE_LABEL_20201008" FIELD="LABEL" COLOR="0;0;0" NUM_ROW="900">
+      <DEFAULT>Release: 1.4 build at: 20201008</DEFAULT>
     </PARAMETER>
   </ADVANCED_PARAMETERS>  
   <CODEGENERATION> 
     <IMPORTS> 
-      <IMPORT NAME="jlo-talendcomp-cronparser" MODULE="jlo-talendcomp-cronparser-1.2.jar" MVN="mvn:org.talend.libraries/jlo-talendcomp-cronparser-1.2/6.0.0-SNAPSHOT" REQUIRED="true"/>
+      <IMPORT NAME="jlo-talendcomp-cronparser" MODULE="jlo-talendcomp-cronparser-1.4.jar" MVN="mvn:org.talend.libraries/jlo-talendcomp-cronparser-1.4/6.0.0-SNAPSHOT" REQUIRED="true"/>
       <IMPORT NAME="quartz" MODULE="quartz-2.3.2.jar" MVN="mvn:org.talend.libraries/quartz-2.3.2/6.0.0-SNAPSHOT" REQUIRED="true"/>
       <IMPORT NAME="mchange-commons-java" MODULE="mchange-commons-java-0.2.15.jar" MVN="mvn:org.talend.libraries/mchange-commons-java-0.2.15/6.0.0-SNAPSHOT" REQUIRED="true"/>
       <IMPORT NAME="slf4j-api" MODULE="slf4j-api-1.7.7.jar" MVN="mvn:org.talend.libraries/slf4j-api-1.7.7/6.0.0-SNAPSHOT" REQUIRED="true"/>

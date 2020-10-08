@@ -58,15 +58,15 @@ public class CronHelper {
 			nc = java.util.Calendar.getInstance();
 		}
 		prevStartDate = nextStartDate;
-		nextStartDate = ce.getNextValidTimeAfter(prevStartDate);
-		nc.setTime(nextStartDate);
-		if (nextStartDate.after(rangeEndDate)) {
+		if (prevStartDate.after(rangeEndDate)) {
 			return false;
 		} else {
 			index++;
 			if (maxIndex > 0 && index > maxIndex) {
 				return false;
 			} else {
+				nextStartDate = ce.getNextValidTimeAfter(prevStartDate);
+				nc.setTime(nextStartDate);
 				return true;
 			}
 		}

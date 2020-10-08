@@ -2,8 +2,6 @@ package talendcomp_cron;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import org.quartz.CronExpression;
 
@@ -40,12 +38,12 @@ public class PlayCronExpressions {
 	
 	public static void testCronHelperRun() throws Exception {
 		String cronstr = "0 0,30 * * * ?";
-		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat sdfTs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		CronHelper ch = new CronHelper(cronstr);
-		ch.setRangeStartDate(sdfDate.parse("2015-08-27"));
-		ch.setRangeEndDate(sdfDate.parse("2015-08-28"));
-		ch.setMaxIndex(4);
+		ch.setRangeStartDate(sdfDate.parse("2020-10-08 11:00:00"));
+		//ch.setRangeEndDate(sdfDate.parse("2015-08-28"));
+		//ch.setMaxIndex(4);
 		while (ch.next()) {
 			System.out.println(ch.getIndex() + ": " + sdfTs.format(ch.getPrevStartDate()) + " - " + sdfTs.format(ch.getNextStartDate()));
 		}
