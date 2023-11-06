@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import org.quartz.CronExpression;
 
-public class CronHelper {
+public class CronHelper implements ScheduleHelper {
 	
 	private CronExpression ce = null;
 	private Date rangeStartDate = null;
@@ -77,81 +77,36 @@ public class CronHelper {
 		nextStartDate = null;
 	}
 	
-    public int getNextMinute() {
+    @Override
+	public int getNextMinute() {
     	return nc.get(java.util.Calendar.MINUTE);
     }
 
-    public int getNextHour() {
+    @Override
+	public int getNextHour() {
     	return nc.get(java.util.Calendar.HOUR_OF_DAY);
     }
 
-    public int getNextMonth() {
+    @Override
+	public int getNextMonth() {
     	return nc.get(java.util.Calendar.MONTH) + 1;
     }
 
-    public int getNextYear() {
+    @Override
+	public int getNextYear() {
     	return nc.get(java.util.Calendar.YEAR);
     }
 
-    public int getNextDayOfWeek() {
+    @Override
+	public int getNextDayOfWeek() {
     	return nc.get(java.util.Calendar.DAY_OF_WEEK);
     }
 
-    public int getNextDayOfMonth() {
+    @Override
+	public int getNextDayOfMonth() {
     	return nc.get(java.util.Calendar.DAY_OF_MONTH);
     }
 
-    public static java.util.Date truncateToDay(java.util.Date timestamp) {
-    	if(timestamp == null) return null;
-    	java.util.Calendar c = java.util.Calendar.getInstance();
-    	c.setTime(timestamp);
-    	// cut time
-    	c.set(java.util.Calendar.MINUTE, 0);
-    	c.set(java.util.Calendar.SECOND, 0);
-    	c.set(java.util.Calendar.MILLISECOND, 0);
-    	c.set(java.util.Calendar.HOUR_OF_DAY, 0);
-    	return c.getTime();
-    }
-
-    public static java.util.Date truncateToMinute(java.util.Date timestamp) {
-    	if(timestamp == null) return null;
-    	java.util.Calendar c = java.util.Calendar.getInstance();
-    	c.setTime(timestamp);
-    	// cut time
-    	c.set(java.util.Calendar.SECOND, 0);
-    	c.set(java.util.Calendar.MILLISECOND, 0);
-    	return c.getTime();
-    }
-
-    public static java.util.Date truncateToMonth(java.util.Date timestamp) {
-    	if(timestamp == null) return null;
-    	// cut time
-    	timestamp = truncateToDay(timestamp);
-    	java.util.Calendar c = java.util.Calendar.getInstance();
-    	c.setTime(timestamp);
-    	// cut day
-    	c.set(java.util.Calendar.DAY_OF_MONTH, 1);
-    	return c.getTime();
-    }    
-
-    public static java.util.Date truncateToWeek(java.util.Date timestamp, java.util.Locale locale) {
-    	if(timestamp == null) return null;
-    	// cut time
-    	timestamp = truncateToDay(timestamp);
-    	java.util.Calendar c = java.util.Calendar.getInstance(locale);
-    	c.setTime(timestamp);
-    	// cut day
-    	c.set(java.util.Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek());
-    	return c.getTime();
-    }
-
-    public static java.util.Date addDays(java.util.Date today, long daysToAdd) {
-    	if (today != null) {
-    		return new java.util.Date(today.getTime() + (1000 * 60 * 60 * 24 * daysToAdd));
-    	} else {
-    		return null;
-    	}
-    }
 
 	public Date getRangeStartDate() {
 		return rangeStartDate;

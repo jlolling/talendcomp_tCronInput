@@ -1,4 +1,4 @@
-package talendcomp_cron;
+package de.jlo.talendcomp.cron;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
