@@ -26,6 +26,8 @@ public class TMCExpression {
 	private ObjectNode atDaysNode = null;
 	private TimeZone timeZone = null;
 	private List<Time> listTimes = null;
+	private List<Day> listDays = null;
+
 
 	public TMCExpression(String triggerStr) throws Exception {
 		if (triggerStr == null || triggerStr.trim().isEmpty()) {
@@ -134,6 +136,14 @@ public class TMCExpression {
 	
 	public List<Time> getTimes() {
 		return listTimes;
+	}
+	
+	public static class Day {
+		int year = 0;
+		int month = 1;
+		int dayOfMonth = 1;
+		int dayOfWeek = 1;
+		int week = 1;
 	}
 	
 	private String getMandatoryValueString(JsonNode node, String attribute) throws Exception {
